@@ -7,9 +7,9 @@ __all__: list[str] = [
     "SimpleIDModelWithOutTime",
     "SimpleIDModelWithCreatedAt",
     "SimpleIDModelWithUpdatedAt",
-    "DataModel",
-    "PredictDataModel",
-    "TradingInfoModel",
+    "BuildingAnalisationModel",
+    "CurrencyRateModel",
+    "BuildingForecastModel",
 ]
 
 from .base import (
@@ -22,7 +22,6 @@ from .base import (
     SimpleIDModelWithCreatedAt,
     SimpleIDModelWithUpdatedAt,
 )
-
-from .data import DataModel
-from .predict_data import PredictDataModel
-from .trading_info import TradingInfoModel
+from .building_analis import BuildingAnalisationModel
+from .currency_rate import CurrencyRateModel
+from .building_forecast import BuildingForecastModel

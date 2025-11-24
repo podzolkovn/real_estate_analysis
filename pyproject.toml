@@ -28,6 +28,8 @@ regex = "^2025.9.18"
 apscheduler = "^3.11.0"
 billiard = "^4.2.2"
 alembic = "^1.17.2"
+pandas = "^2.3.3"
+prophet = "^1.2.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest=">=8.3.5,<9.0.0"
