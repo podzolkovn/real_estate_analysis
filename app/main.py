@@ -8,27 +8,21 @@ from app.core.middleware.i18n import I18nMiddleware
 from app.core.middleware.metrics import RequestMetricsMiddleware
 from app.core.routers import bind_routers
 from app.core.scheduler import scheduler
-# from app.core.tasks.shutdown import close_browser
-# from app.core.tasks.startup import setup_browser, start_scheduler
+
+from app.core.tasks.startup import start_scheduler
 
 
-# @asynccontextmanager
-# async def lifespan(app: FastAPI):
-#     try:
-#         await setup_browser()
-#     except Exception as e:
-#         logger.exception(f"Ошибка setup_browser: {e}")
-#     try:
-#         await start_scheduler()
-#     except Exception as e:
-#         logger.exception(f"Ошибка start_scheduler: {e}")
-#     yield
-#     try:
-#         scheduler.shutdown(wait=False)
-#     except Exception as e:
-#         logger.warning(f"Ошибка при завершении scheduler: {e}")
-#
-#     await close_browser()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        await start_scheduler()
+    except Exception as e:
+        logger.exception(f"Ошибка start_scheduler: {e}")
+    yield
+    try:
+        scheduler.shutdown(wait=False)
+    except Exception as e:
+        logger.warning(f"Ошибка при завершении scheduler: {e}")
 
 
 def setup_application():
