@@ -1,41 +1,27 @@
 services:
-#  payment-service-app:
-#    restart: unless-stopped
-#    image: crsatournqctest.azurecr.io/${REPOSITORY}:${IMAGE_TAG}
-#    environment:
-#      POSTGRES_HOST: ${DEV_POSTGRES_HOST}
-#      POSTGRES_PORT: ${DEV_POSTGRES_PORT}
-#      POSTGRES_DB: ${DEV_POSTGRES_DB}
-#      POSTGRES_USER: ${DEV_POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${DEV_POSTGRES_PASSWORD}
-#      LOCALE_DIR: ${LOCALE_DIR}
-#      DEFAULT_LOCALE: ${DEFAULT_LOCALE}
-#      TIPTOP_LOGIN: ${TEST_TT_LOGIN}
-#      TIPTOP_PASSWORD: ${TEST_TT_PASS}
-#      AZURE_ENDPOINT_NAME: ${AZURE_ENDPOINT_NAME}
-#      AZURE_SAS_TTL_MINUTES: ${AZURE_SAS_TTL_MINUTES}
-#      AZURE_UPLOAD_MAX_SIZE_BYTES: ${AZURE_UPLOAD_MAX_SIZE_BYTES}
-#      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
-#      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
-#      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
-#      AZURE_SAS_SINGING_MODE: ${AZURE_SAS_SINGING_MODE}
-#      AZURE_ACCOUNT_NAME: ${AZURE_ACCOUNT_NAME}
-#      AZURE_ACCOUNT_KEY: ${AZURE_ACCOUNT_KEY}
-#      AZURE_SAS_EXPAIRES_DAYS: ${AZURE_SAS_EXPAIRES_DAYS}
-#      RESERVATION_HOST: ${DEV_RESERVATION_HOST}
-#      RESERVATION_PORT: ${DEV_RESERVATION_PORT}
-#    ports:
-#      - "10900:8000"
-#    entrypoint: ["./start.sh"]
-#    depends_on:
-#      payment-service-db:
-#        condition: service_healthy
-#    healthcheck:
-#      test: [ "CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" ]
-#      interval: 60s
-#      timeout: 3s
-#      retries: 3
-#    mem_limit: 512m
+  real-estate-analisis-app:
+    restart: unless-stopped
+    build: .
+    environment:
+      POSTGRES_HOST: ${DEV_POSTGRES_HOST}
+      POSTGRES_PORT: ${DEV_POSTGRES_PORT}
+      POSTGRES_DB: ${DEV_POSTGRES_DB}
+      POSTGRES_USER: ${DEV_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DEV_POSTGRES_PASSWORD}
+      LOCALE_DIR: ${LOCALE_DIR}
+      DEFAULT_LOCALE: ${DEFAULT_LOCALE}
+    ports:
+      - "8000:8000"
+    entrypoint: ["./start.sh"]
+    depends_on:
+      real-estate-analisis-db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" ]
+      interval: 60s
+      timeout: 3s
+      retries: 3
+    mem_limit: 512m
 
   real-estate-analisis-db:
     image: postgres:16
@@ -55,4 +41,5 @@ services:
     mem_limit: 512m
 
 volumes:
+
   real-estate-analisis-volume-db:
